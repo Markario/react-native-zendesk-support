@@ -62,7 +62,7 @@ public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
 
   private static final int REQUEST_CODE = 304869;
 
-  public RNZenDeskSupportModule(ReactApplicationContext reactContext) {
+  public RNZenDeskSupportModule(final ReactApplicationContext reactContext) {
     super(reactContext);
     reactContext.addActivityEventListener(new BaseActivityEventListener() {
       @Override
