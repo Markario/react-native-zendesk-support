@@ -16,14 +16,8 @@ export const zendeskEvents = {
 				callback(notification)
 			}
 		});
-		this.successListener2 = DeviceEventEmitter.addListener('submitRequestCompleted', (event) => {
-	    if(callback) {
-				callback(notification)
-			}
-	  });
 	},
 	submitRequestCompletedClean: () => {
 		this.successListener.remove();
-		this.successListener2.remove();
 	},
 }

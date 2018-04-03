@@ -199,10 +199,9 @@ public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
     Activity activity = getCurrentActivity();
 
     if(activity != null){
-        Intent callSupportIntent = new Intent(getReactApplicationContext(), ContactZendeskActivity.class);
-        callSupportIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent callSupportIntent = new Intent(activity, ContactZendeskActivity.class);
         callSupportIntent.putExtra(ContactZendeskActivity.EXTRA_CONTACT_CONFIGURATION, configuration);
-        getReactApplicationContext().startActivityForResult(callSupportIntent, REQUEST_CODE, null);
+        activity.startActivityForResult(callSupportIntent, REQUEST_CODE, null);
     }
   }
 
