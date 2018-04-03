@@ -69,11 +69,11 @@ public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
           if (resultCode == Activity.RESULT_CANCELED) {
             reactContext
               .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-              .emit('submitRequestCancelled', null);
+              .emit("submitRequestCancelled", null);
           } else if (resultCode == Activity.RESULT_OK) {
             reactContext
               .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-              .emit('submitRequestCompleted', null);
+              .emit("submitRequestCompleted", null);
           }
         }
       }
