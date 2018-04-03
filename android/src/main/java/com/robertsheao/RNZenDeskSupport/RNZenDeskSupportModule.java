@@ -26,6 +26,7 @@ import com.zendesk.sdk.network.impl.ZendeskConfig;
 import com.zendesk.sdk.feedback.BaseZendeskFeedbackConfiguration;
 import com.zendesk.sdk.feedback.ZendeskFeedbackConfiguration;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +57,27 @@ class FeedbackConfig extends BaseZendeskFeedbackConfiguration implements Seriali
   }
 
 public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
+
+  private static final int REQUEST_CODE = 304869;
+
   public RNZenDeskSupportModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    reactContext.addActivityEventListener(new BaseActivityEventListener() {
+      @Override
+      public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+        if (requestCode == REQUEST_CODE) {
+          if (resultCode == Activity.RESULT_CANCELED) {
+            reactContext
+              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+              .emit('submitRequestCancelled', null);
+          } else if (resultCode == Activity.RESULT_OK) {
+            reactContext
+              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+              .emit('submitRequestCompleted', null);
+          }
+        }
+      }
+    });
   }
 
   @Override
@@ -180,7 +200,7 @@ public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
         Intent callSupportIntent = new Intent(getReactApplicationContext(), ContactZendeskActivity.class);
         callSupportIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callSupportIntent.putExtra(ContactZendeskActivity.EXTRA_CONTACT_CONFIGURATION, configuration);
-        getReactApplicationContext().startActivity(callSupportIntent);
+        getReactApplicationContext().startActivityForResult(callSupportIntent, REQUEST_CODE);
     }
   }
 
