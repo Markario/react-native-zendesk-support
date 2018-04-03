@@ -15,6 +15,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.BaseActivityEventListener;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.zendesk.sdk.feedback.ui.ContactZendeskActivity;
 import com.zendesk.sdk.requests.RequestActivity;
 import com.zendesk.sdk.support.SupportActivity;
@@ -200,7 +202,7 @@ public class RNZenDeskSupportModule extends ReactContextBaseJavaModule {
         Intent callSupportIntent = new Intent(getReactApplicationContext(), ContactZendeskActivity.class);
         callSupportIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callSupportIntent.putExtra(ContactZendeskActivity.EXTRA_CONTACT_CONFIGURATION, configuration);
-        getReactApplicationContext().startActivityForResult(callSupportIntent, REQUEST_CODE);
+        getReactApplicationContext().startActivityForResult(callSupportIntent, REQUEST_CODE, null);
     }
   }
 
